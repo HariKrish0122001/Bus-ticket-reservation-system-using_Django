@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Booking</title>
+     <!---BOOTSTRAP-->
+    <link rel="stylesheet" href="static\home.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     <script type="text/javascript" src="/static/book.js" defer></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<table class="table table-striped">
+    <thead style="background-color: blue;color: white;">
+        <th>Bus ID</th>
+        <th>Bus Name</th>
+        <th>Source</th>
+        <th>Destination</th>
+        <th>Total Seats</th>
+        <th>Available Seats</th>
+        <th>Price</th>
+        <th>Date</th>
+        <th>Time</th>
+    </thead>
+    {% for bus in data %}
+
+    <tr>
+        <td>{{bus.id}}</td>
+        <td>{{bus.bus_name}}</td>
+        <td>{{bus.start_location}}</td>
+        <td>{{bus.destination}}</td>
+        <td>{{bus.nos}}</td>
+        <td>{{bus.rem}}</td>
+        <td>{{bus.price}}</td>
+        <td>{{bus.date}}</td>
+        <td>{{bus.time}}</td>
+
+    </tr>
+    {% endfor %}
+</table>
+<br>
+    <form action="book" method="post">
+        {% csrf_token %}
+        <label for="bus_id">Bus ID :   </label>
+        <input type="number" id="bus_id" name="bus_id" required><br><br>
+        <label for="no_seats">Number of seats:</label>
+        <input type="number" id="no_seats" name="no_seats" required>
+        <button type="button" onclick="generateFields()"> OK </button>
+        <br><br>
+        <div id="passenger_fields"></div>
+        <br>
+        <input type="submit" value="Submit" class="pull-right" onsubmit="submit_form()">
+      </form>
+<!--
+      <script>
+      function generateFields() {
+        var numSeats = document.getElementById("no_seats").value;
+        var passengerFields = document.getElementById("passenger_fields");
+        passengerFields.innerHTML = ""; // Clear previous fields (if any)
+
+        for (var i = 1; i <= numSeats; i++) {
+          var nameField = document.createElement("input");
+          nameField.type = "text";
+          nameField.name = "name_" + i;
+          nameField.placeholder = "Passenger " + i + " name";
+          nameField.required = true;
+
+          var ageField = document.createElement("input");
+          ageField.type = "number";
+          ageField.name = "age_" + i;
+          ageField.placeholder = "Passenger " + i + " age";
+          ageField.required = true;
+
+          var genderField = document.createElement("select");
+          genderField.name = "gender_" + i;
+          genderField.required = true;
+
+          var genderOption1 = document.createElement("option");
+          genderOption1.value = "male";
+          genderOption1.text = "Male";
+          genderField.appendChild(genderOption1);
+
+          var genderOption2 = document.createElement("option");
+          genderOption2.value = "female";
+          genderOption2.text = "Female";
+          genderField.appendChild(genderOption2);
+
+          var genderOption3 = document.createElement("option");
+          genderOption3.value = "other";
+          genderOption3.text = "Other";
+          genderField.appendChild(genderOption3);
+
+          passengerFields.appendChild(nameField);
+          passengerFields.appendChild(ageField);
+          passengerFields.appendChild(genderField);
+          passengerFields.appendChild(document.createElement("br"));
+        }
+      }
+      </script>-->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
