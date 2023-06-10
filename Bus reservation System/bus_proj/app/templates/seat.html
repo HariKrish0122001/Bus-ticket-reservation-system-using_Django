@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<head>
+  <!---BOOTSTRAP-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+          .box {
+        float: left;
+        height: 20px;
+        width: 20px;
+        margin-bottom: 15px;
+        border: 1px solid black;
+        clear: both;
+      }
+
+    
+    .column {
+      float: left;
+      width: 50%;
+      padding: 10px;
+      height: 800px;
+      /* Should be removed. Only for demonstration */
+    }
+
+    /* Clear floats after the columns */
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    /* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+    @media screen and (max-width: 768px) {
+      .column {
+        width: 100%;
+      }
+    }
+
+    body {
+      justify-content: center;
+    }
+
+    .bus-container {
+      padding-top: 70px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      padding-bottom: 50px;
+      padding-right: 10px;
+      padding-left: 10px;
+
+    }
+
+    .seat-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .seat {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 50px;
+      height: 50px;
+      background-color: #f2f2f2;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      border-radius: 10px;
+    }
+    .legend {
+      margin-top: 10px;
+      display: flex;
+      margin-right: 20px;
+      justify-content: center;
+      align-items: center;
+      width: 60px;
+      height: 30px;
+      border: 1px solid #ccc;
+      
+    }
+
+
+    .aisle {
+      width: 20px;
+      background-color: transparent
+    }
+
+    .booked {
+      background-color: #ff9130;
+      color: #f2f2f2;
+      cursor: not-allowed;
+    }
+    .female {
+    background-color: #ff66cc;
+    color:white;
+    cursor: not-allowed;
+   }
+   .other {
+    background-color: #00ccff;
+    color:white;
+    cursor: not-allowed;
+   }
+
+
+    .selected {
+      background-color: #0059ff;
+      color: #f2f2f2;
+    }
+
+    .outline {
+      background-color: white;
+      box-sizing: border-box;
+      border-color: #ff0000;
+      max-width: 350px;
+      margin: 20px;
+      border-radius: 15px;
+      max-height: 600px;
+      margin-top: 70px;
+      margin-left: 100px;
+    }
+  </style>
+</head>
+
+<body>
+  {% csrf_token %}
+  <div class="container-fluid">
+    <div class="row">
+      <div class="column" style="background-color:#aaa;">
+        <div class="container-fluid">
+          <div class="row align-items-center">
+
+
+<h2 class="text-center">Seats Available</h2>
+            <div class="outline">
+
+              <div class="container-fluid bus-container">
+
+                <div class="seat-row">
+                  <div class="seat " data-seat-number="1">1</div>
+                  <div class="seat " data-seat-number="2">2</div>
+                  <div class="seat " data-seat-number="3">3</div>
+                  <div class="aisle"></div>
+                  <div class="seat" data-seat-number="4">4</div>
+                  <div class="seat " data-seat-number="5">5</div>
+                </div>
+
+                <div class="seat-row">
+                  <div class="seat " data-seat-number="6">6</div>
+                  <div class="seat " data-seat-number="7">7</div>
+                  <div class="seat " data-seat-number="8">8</div>
+                  <div class=" aisle"></div>
+                  <div class="seat" data-seat-number="9">9</div>
+                  <div class="seat " data-seat-number="10">10</div>
+                </div>
+                <div class="seat-row">
+                  <div class="seat" data-seat-number="11">11</div>
+                  <div class="seat" data-seat-number="12">12</div>
+                  <div class="seat " data-seat-number="13">13</div>
+                  <div class=" aisle"></div>
+                  <div class="seat" data-seat-number="14">14</div>
+                  <div class="seat " data-seat-number="15">15</div>
+                </div>
+                <div class="seat-row">
+                  <div class="seat" data-seat-number="16">16</div>
+                  <div class="seat" data-seat-number="17">17</div>
+                  <div class="seat " data-seat-number="18">18</div>
+                  <div class=" aisle"></div>
+                  <div class="seat" data-seat-number="19">19</div>
+                  <div class="seat " data-seat-number="20">20</div>
+                </div>
+                <div class="seat-row">
+                  <div class="seat" data-seat-number="21">21</div>
+                  <div class="seat" data-seat-number="22">22</div>
+                  <div class="seat " data-seat-number="23">23</div>
+                  <div class=" aisle"></div>
+                  <div class="seat " data-seat-number="24">24</div>
+                  <div class="seat" data-seat-number="25">25</div>
+                </div>
+                <div class="seat-row">
+                  <div class="seat" data-seat-number="26">26</div>
+                  <div class="seat" data-seat-number="27">27</div>
+                  <div class="seat " data-seat-number="28">28</div>
+                  <div class=" aisle"></div>
+                  <div class="seat" data-seat-number="29">29</div>
+                  <div class="seat " data-seat-number="30">30</div>
+                </div>
+                
+                <div class="seat-row">
+                  <div class="seat" data-seat-number="31">31</div>
+                  <div class="seat" data-seat-number="32">32</div>
+                  <div class="seat " data-seat-number="33">33</div>
+                  <div class="seat" data-seat-number="34">34</div>
+                  <div class="seat " data-seat-number="35">35</div>
+                </div>
+                
+              </div>
+             
+                <div class="row " style="margin-top: 7px; margin-bottom: 5px;">
+                  <div class="legend booked" style="color:black">Male </div> 
+                  <div class="legend female" style="color:black"> Female </div>
+                  <div class="legend other" style="color:black">  Other</div>
+                  
+                </div>
+                <button type="button" class="btn btn-info btn-md" onclick="generateFields()"> Book </button>
+              <!-- More seat rows... -->
+              
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="column" style="background-color:#bbb;">
+        <div class="row" style="padding-top: 200px;">
+          <div class="mx-auto">
+            <h1>Passenger Details </h1>
+            <div class="form-control-plaintext" id="passenger_fields"></div>
+          </div>
+          <br>
+        </div>
+        <button type="button" class="btn btn-success"  disabled id="submit-btn"  data-toggle="modal"
+        data-target="#exampleModal">Confirm</button>
+      </div>
+
+
+    </div>
+  </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Booking</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Are You sure you want to book?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-success" onclick="saveSelectedSeats()">Confirm Booking</button>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    <!-- Legends -->
+ 
+
+   
+
+  <!--button onclick="saveSelectedSeats()">Save Selected Seats</button>-->
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+
+  <script>
+   
+    const bookedSeats = {{existing_seats | safe }}; // Example of previously booked seats
+    console.log(bookedSeats)
+    const d={{ info | safe }};
+    var busId = {{bus_id | safe}}
+    console.log(d)
+    console.log
+    var seat = d.seats;
+    var gender = d.gender;
+    console.log(seat)
+    </script>
+  <script type="text/javascript" src="{% static 'book.js' %}"></script>
+  {% endblock %}
+
+</body>
+
+</html>

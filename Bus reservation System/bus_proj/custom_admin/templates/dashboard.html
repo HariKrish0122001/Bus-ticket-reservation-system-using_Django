@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+     
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+ <div class="container-fluid" style="font-style: italic; font-family:'Franklin Gothic Medium'; background-color: #007bff; color: azure;">
+        <h1 class="text-center">Agency Dashboard</h1>
+ </div>
+
+{% if messages %}
+{% for message in messages %}
+{% if message.tags == 'success' %}
+<div class="alert alert-success" role="alert">
+    {{message}}
+</div>
+{% endif %}
+{% endfor %}
+{% endif %}
+
+  <div class="container-fluid" style="font-style: italic; font-family:'Franklin Gothic Medium'; background-color: #ff4d4d; color: azure;">
+     <h1 class="text-center">{{request.user.username}}</h1>
+          </div>
+
+     {% csrf_token %}
+ <div class="container-fluid" style="margin-top:100px; margin-left: 100px;">
+  <div class="row g-3">
+      <div class="col ">
+          <a type="button" class="btn btn-md btn-success" href='{% url "addbus" %}'> Add bus </a>
+      </div>
+       <div class="col">
+        <a type="button" class="btn btn-md btn-danger" href='{% url "cancelbus" %}'> Cancel bus </a>
+      </div>
+       <div class="col">
+        <a type="button" class="btn  btn-md btn-primary" href='{% url "busdetails" %}'> Bus Details </a>
+      </div>
+
+       <div class="col">
+        <a type="button" class="btn btn-md " style="color:white; background-color: #ff3300;" href='{% url "customerdetails" %}' >Customer info</a>
+      </div>
+      <div class="col">
+        <a type="button" class="btn btn-md btn-info" href="{% url 'logout' %}"> Logout </a>
+      </div>
+  </div>
+     <div class="col-md-10 col-lg-6 col-xl-10 d-flex align-items-center order-1 order-lg-2">
+
+                      <img src="https://img.freepik.com/free-vector/bus-driver-concept-illustration_114360-6620.jpg?w=740&t=st=1685512111~exp=1685512711~hmac=000b057e7f3a01b25347da63340a0dca63250d7e648cdf9135849950215b6cae"
+                        class="img-fluid" alt="Sample image">
+                       <div class="mx-auto" style="width: 700px; font-style: italic; font-family:'Franklin Gothic Medium'; background-color: #007bff; color: azure;">
+        <h1 align="center">Journey Jet</h1>
+                       </div>
+                    </div>
+
+  </div>
+
+
+      {{error}}
+
+  </div>
+
+
+
+
+<br>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

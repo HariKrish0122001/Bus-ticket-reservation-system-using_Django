@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cancellation</title>
+    <!---BOOTSTRAP-->
+    <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+{% extends 'base.html' %}
+{% block content %}
+{% if messages %}
+{% for message in messages %}
+{% if message.tags == 'error' %}
+<div class="alert alert-danger" role="alert">
+    {{message}}
+</div>
+{% else %}
+<div class="alert alert-success" role="alert">
+ {{message}}
+</div>
+{% endif %}
+{% endfor %}
+{% endif %}
+<body>
+<form action="cancel" method="post" id="cancel">
+     {% csrf_token %}
+<div class="container" style="
+width: 250%; max-height: 20%;
+  margin: 0 auto; back-ground-color:grey;" >
+
+
+        <table id="mytable"  class="table table-striped"
+style=" max-height: 500px;      overflow-x: auto;">
+            <thead style="background-color: #007bff; color: azure;">
+                <th>Booking ID</th>
+                <th>Bus Type</th>
+                <th>Travels</th>
+                <th>Passenger  Name</th>
+                <th>Source</th>
+                <th>Destination</th>
+                <th>Price</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Trip Status</th>
+                <th>Status</th>
+
+                <th>Action</th>
+            </thead>
+            {% for user in data %}
+        
+            <tr>
+                <td>{{user.id}}</td>
+                <td>{{user.bus_type}}</td>
+                <td>{{user.travels_name}}</td>
+                <td>{{user.pass_name}}</td>
+                <td>{{user.source}}</td>
+                <td>{{user.dest}}</td>
+                <td>{{user.price}}</td>
+                <td>{{user.date}}</td>
+                <td>{{user.time}}</td>
+                <td>{{user.trip_status}}</td>
+                <td>{{user.status}}</td>
+                <td>
+                    {% if user.status == 'Booked' %}
+                     <input type="checkbox" class="form-check-input" name="ids[]" value="{{user.id}}">
+                    <label class="form-check-label">Click to cancel</label>
+                    {% endif %}
+                </td>
+        
+            </tr>
+            {% endfor %}
+        </table><br>
+    </div>
+
+            <!-- Button trigger modal -->
+          <input type="button"   value="Proceed to Cancel" class="btn btn-danger float-right" data-toggle="modal" id="proceedcancel" data-target="#exampleModal">
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Cancellation</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Do you want to cancel this Ticket??
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit"   class="btn btn-danger">Proceed to Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+        </form>
+<!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- DATATABLES -->
+    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+    <!-- BOOTSTRAP JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#mytable').DataTable();
+        });
+    </script>
+
+
+
+       {% endblock %}
+
+
+<script>
+
+
+  $(document).ready(function() {
+  debugger
+    $('#book_id').on('input', function() {
+      var inputValue = $(this).val().trim();
+      if (inputValue === '') {
+        $('#proceedcancel').prop('disabled', true);
+      } else {
+        $('#proceedcancel').prop('disabled', false);
+      }
+    });
+  });
+
+
+
+
+
+
+</script>
+        
+    
+</body>
+</html>

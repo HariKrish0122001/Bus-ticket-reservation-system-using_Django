@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Bus</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+{% if messages %}
+                        {% for message in messages %}
+                        {% if message.tags == 'error' %}
+                        <div class="alert alert-danger" role="alert">
+                            {{message}}
+                        </div>
+                        {% else %}
+                        <div class="alert alert-success" role="alert">
+                            {{message}}
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
+    <section class="vh-1000" style="background-color: #eee;">
+        <div class="container h-100">
+          <div class="mx-auto" style="width: 700px; font-style: italic; font-family:'Franklin Gothic Medium'; background-color: #007bff; color: azure;">
+            <h1 align="center">Admin</h1>
+          </div>
+             <div class="mx-auto" style="width: 700px; font-style: italic; font-family:'Franklin Gothic Medium'; background-color: #ff4d4d ; color: azure;">
+                 <h1 align="center">{{request.user.username}}</h1>
+             </div>
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-12 col-xl-11">
+              <div class="card text-black" style="border-radius: 25px;">
+                <div class="card-body p-md-5">
+                  <div class="row justify-content-center">
+                    <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+      
+                      <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Add Bus</p>
+      
+                      <form class="mx-1 mx-md-4" method="post" action="addbus" id="addform">
+
+                        {% csrf_token %}
+                        <div class="d-flex flex-row align-items-center mb-4">
+                          <i class="fas fa-key fa-lg me-3 fa-fw"></i>
+                          <div class="form-outline flex-fill mb-0">
+                            <label class="form-label">Bus type</label>
+                              <select class="form-control" aria-label=".form-select-lg example" name="busname" required>
+                                      <option value="5">NON-AC</option>
+                                      <option value="1">AC-Sleeper </option>
+                                      <option value="2">Deluxe</option>
+                                      <option value="3">NON-AC Sleeper</option>
+                              </select>
+                            
+                          </div>
+                        </div>
+      
+                        <div class="d-flex flex-row align-items-center mb-4">
+                          <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                          <div class="form-outline flex-fill mb-0">
+                            <label class="form-label" >From</label>
+                            <input type="text" name="from" class="form-control" required />
+                            
+                          </div>
+                        </div>
+      
+                        <div class="d-flex flex-row align-items-center mb-4">
+                          <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                          <div class="form-outline flex-fill mb-0">
+                            <label class="form-label" >To</label>
+                            <input type="text" name="to" class="form-control" required/>
+                            
+                          </div>
+                        </div>
+                        <div class="d-flex flex-row align-items-center mb-4">
+                          <i class="fas fa-key fa-lg me-3 fa-fw"></i>
+                          <div class="form-outline flex-fill mb-0">
+                            <label class="form-label" for="cost">Cost</label>
+                            <input type="number" name="cost" class="form-control" required />
+                            
+                          </div>
+                        </div>
+                        <div class="d-flex flex-row align-items-center mb-4">
+                          <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+                          <div class="form-outline flex-fill mb-0">
+                            <span id="dateError" style="display: none; color: red;"></span>
+                            <label class="form-label" for="date">Date</label>
+                            <input type="date" name="date" class="form-control" required/>
+                            
+                          </div>
+                        </div>
+                        <div class="d-flex flex-row align-items-center mb-4">
+                          <i class="fas fa-key fa-lg me-3 fa-fw"></i>
+                          <div class="form-outline flex-fill mb-0">
+                            <label class="form-label" for="time">Time</label>
+                            <input type="time" name="time" class="form-control" required/>
+                            
+                          </div>
+                        </div>
+
+                        <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                          <input type="button" value="Add Bus" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#exampleModal" />
+                        </div>
+                          <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Bus</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Do you want to add this bus??
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-success">Proceed to Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+                      </form>
+      
+                    </div>
+                    <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+      
+                      <img src="https://img.freepik.com/free-vector/city-bus-concept-illustration_114360-11574.jpg?w=996&t=st=1685517995~exp=1685518595~hmac=4a02157a413ce442e52166c304504c6049936744c492bc0d2c935ee470d0296d"
+                        class="img-fluid" alt="Sample image">
+      
+                    </div>
+
+                  </div>
+                  <a type="button"  class="btn btn-success btn-md" href="{% url 'dashboard' %}">Back to Dashboard</a>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+      </section>
+    <script>
+    debugger;
+      document.getElementById('addform').addEventListener('submit', function(event) {
+      debugger;
+      var x=document.getElementById('date')
+    var date = document.getElementById('date').value;
+
+    var errorElement = document.getElementById('dateError');
+    var seaterror = document.getElementById('seaterror');
+    var  currentDatetime = new Date();
+    var day = currentDatetime.getDate();
+    var month =currentDatetime.getMonth() + 1;
+    var year = currentDatetime.getFullYear();
+
+    var correctDate = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`;
+    console.log(correctDate);
+
+
+    var totalseats=document.getElementById('total_seats')
+    var remain=document.getElementById('remain')
+    // Date Check
+    if (date<correctDate) {
+        errorElement.textContent = '**Enter the Valid Date';
+        errorElement.style.display = 'block';
+        event.preventDefault();
+        x.value='';
+
+    }
+   else if(remain.value>total_seats.value){
+       seaterror.textContent = '**Remaining seats should be less than Total seats';
+        seaterror.style.display = 'block';
+        event.preventDefault();
+        remain.value='';
+
+
+   }
+
+    else {
+        errorElement.style.display = 'none';
+    }
+});
+
+    </script>
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

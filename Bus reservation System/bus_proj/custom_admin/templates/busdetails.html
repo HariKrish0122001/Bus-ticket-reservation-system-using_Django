@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Booking</title>
+    <!-- BOOTSTRAP -->
+    <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+   <style>
+        table.dataTable thead th {
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="text-center" style="background-color: #007bff; font-style: italic; font-family:'Franklin Gothic Medium';color: azure;">
+                <h1>Bus Details</h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="text-center" style="font-style: italic; font-family:'Franklin Gothic Medium'; background-color: #ff4d4d; color: azure;">
+                <h1>{{request.user.username}}</h1>
+            </div>
+        </div>
+    </div>
+
+    {% if messages %}
+        <div class="row">
+            <div class="col">
+                {% for message in messages %}
+                    {% if message.tags == 'error' %}
+                        <div class="alert alert-danger" role="alert">
+                            {{message}}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="row mt-4">
+        <div class="col">
+            <div class="table-responsive">
+                <table class="table table-striped" id="mytable">
+                    <thead style="background-color: #007bff; color: azure;">
+                    <th>Bus ID</th>
+                    <th>Bus Type</th>
+                    <th>Source</th>
+                    <th>Destination</th>
+                    <th>Total Seats</th>
+                    <th>Available Seats</th>
+                    <th>Price</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Bus Status</th>
+                    </thead>
+                    <tbody>
+                    {% for bus in data %}
+                    <tr>
+                        <td>{{bus.id}}</td>
+                        <td>{{bus.bus_type}}</td>
+                        <td>{{bus.start_location}}</td>
+                        <td>{{bus.destination}}</td>
+                        <td>{{bus.nos}}</td>
+                        <td>{{bus.rem}}</td>
+                        <td>{{bus.price}}</td>
+                        <td>{{bus.date}}</td>
+                        <td>{{bus.time}}</td>
+                        <td>{{bus.bus_status}}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col text-center">
+            <a type="button" class="btn btn-success btn-md" href="{% url 'dashboard' %}">Back to Dashboard</a>
+        </div>
+    </div>
+</div>
+
+<!-- JQUERY -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- BOOTSTRAP JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
+<!-- DATATABLES -->
+<script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#mytable').DataTable();
+    });
+</script>
+
+</body>
+</html>
+
